@@ -535,7 +535,40 @@ MySQL;
 
     protected function command_mcstatus(Shotbow_ChatBot_User $sender, $arguments)
     {
-        $message = "Sometimes it's Mojang.  [url=http://xpaw.ru/mcstatus/]Have you checked?[/url]";
+        $scan = json_decode(file_get_contents("https://status.mojang.com/check"), true);
+
+        $errors = array();
+
+        if ($scan[0]["minecraft.net"] !== "green") {
+            array_push($errors, "Minecraft is down: ");
+        }
+
+        if ($scan[1]["session.minecraft.net"] !== "green" || $scan[6]["sessionserver.mojang.com"] !== "green") {
+            array_push($errors, "All server sessions are down. ");
+        }
+
+        if ($scan[2]["account.mojang.com"] !== "green") {
+            array_push($errors, "Account services are down. ");
+        }
+
+        if ($scan[3]["auth.mojang.com"] !== "green" || $scan[5]["authserver.mojang.com"] !== "green") {
+            array_push($errors, "Authentication servers are down. ");
+        }
+
+        if ($scan[4]["skins.minecraft.net"] !== "green") {
+            array_push($errors, "Skin servers are down. ");
+        }
+        
+        $message = "Sometimes it's Mojang... ";
+        
+        if (sizeof($errors) !== 0) {
+            foreach ($errors as $i) {
+                $message .= $i;
+            }
+        } else {
+            $message .= "but today, it seems like all of Mojang's servers are working fine!";
+        }
+        
         $this->postMessage($message);
     }
 
