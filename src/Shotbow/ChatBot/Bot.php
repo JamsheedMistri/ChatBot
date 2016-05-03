@@ -535,6 +535,7 @@ MySQL;
 
     protected function command_mcstatus(Shotbow_ChatBot_User $sender, $arguments)
     {
+        //TODO: "Better logic" - Navarr 2k16
         $scan = json_decode(file_get_contents("https://status.mojang.com/check"), true);
 
         $errors = array();
