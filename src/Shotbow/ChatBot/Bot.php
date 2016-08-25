@@ -236,6 +236,7 @@ MySQL;
                 'contact'  => [$this, 'command_contact'],
                 'why'      => [$this, 'command_why'],
                 'math'     => [$this, 'command_math'],
+                'bacon'     => [$this, 'command_bacon'],
             ];
         }
 
@@ -535,7 +536,7 @@ MySQL;
 
     protected function command_mcstatus(Shotbow_ChatBot_User $sender, $arguments)
     {
-        //TODO: "Better logic" - Navarr 2k16
+        // TODO "Better logic" - Navarr 2k16
         $scan = json_decode(file_get_contents("https://status.mojang.com/check"), true);
 
         $errors = array();
@@ -561,7 +562,7 @@ MySQL;
         }
 
         $message = "Sometimes it's Mojang... ";
-        
+
         if (count($errors) !== 0) {
             foreach ($errors as $i) {
                 $message .= $i;
@@ -647,6 +648,14 @@ MySQL;
             } catch (Exception $e) {
                 $this->postMessage('I\'m sorry, but I don\'t recognize that as a mathematical expression.  Feel free to try another.');
             }
+        }
+    }
+
+    protected function command_bacon(Shotbow_ChatBot_User $sender, $arguments)
+    {
+        if (in_array($sender->getId(), [319, 1330069, 262846])
+          $action = "Shoves [url=https://i.imgur.com/F0Lon2j.jpg]bacon[/url] down ".$sender."'s throat.'";
+          $this->postAction($action);
         }
     }
 }
