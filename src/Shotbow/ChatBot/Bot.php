@@ -653,8 +653,8 @@ MySQL;
 
     protected function command_bacon(Shotbow_ChatBot_User $sender, $arguments)
     {
-        if (in_array($sender->getId(), [319, 1330069, 262846]) {
-          $action = "Shoves [url=https://i.imgur.com/F0Lon2j.jpg]bacon[/url] down ".$sender."'s throat.'";
+        if (in_array($sender->getId(), [319, 1330069, 262846])) {
+          $action = "Shoves [url=https://i.imgur.com/F0Lon2j.jpg]bacon[/url] down ".$sender."'s throat.";
           $this->postAction($action);
         }
     }
